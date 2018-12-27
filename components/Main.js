@@ -6,12 +6,19 @@ import Contact from './Contact';
 import { View, Platform } from 'react-native';
 import DishDetail from './DishDetails';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { Icon } from 'react-native-elements';
 
 
 // Stack Navigator
 const MenuNavigator = createStackNavigator({
     // Screens
-    Menu: { screen: Menu },
+    Menu: { screen: Menu,
+        navigationOptions: ({ navigation }) => ({
+            headerLeft: <Icon name='menu' size={24}
+                    color='white'
+                    onPress={() => navigation.toggleDrawer()} // provided method by default
+                    />
+        }) },
     DishDetail: { screen: DishDetail}
 }, {
     // Navigation Options
@@ -33,15 +40,19 @@ const HomeNavigator = createStackNavigator({
     Home: { screen: Home },
     DishDetail: { screen: DishDetail}
 }, {
-    navigationOptions: {
+    navigationOptions:  ({ navigation }) => ( {
         headerStyle: {
             backgroundColor: '#512DA8'
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
             color: '#fff'
-        }
-    }
+        },
+        headerLeft: <Icon name='menu' size={24}
+            color='white'
+            onPress={() => navigation.toggleDrawer()}
+        />
+    })
 
 });
 
@@ -50,15 +61,19 @@ const ContactNavigator = createStackNavigator({
     Contact: { screen: Contact},
 
 }, {
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ( {
         headerStyle: {
             backgroundColor: '#512DA8'
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
             color: '#fff'
-        }
-    }
+        },
+        headerLeft: <Icon name='menu' size={24}
+            color='white'
+            onPress={() => navigation.toggleDrawer()}
+        />
+    })
 
 });
 
@@ -66,15 +81,19 @@ const AboutNavigator = createStackNavigator({
     // Screens
     About: { screen: About}
 }, {
-    navigationOptions: {
+    navigationOptions:  ({ navigation }) => ({
         headerStyle: {
             backgroundColor: '#512DA8'
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
             color: '#fff'
-        }
-    }
+        },
+        headerLeft: <Icon name='menu' size={24}
+            color='white'
+            onPress={() => navigation.toggleDrawer()}
+        />
+    })
 
 });
 
@@ -84,28 +103,60 @@ const MainNavigator = createDrawerNavigator({
         screen: HomeNavigator,
         navigationOptions: {
             title: 'Home',
-            drawerLabel: 'Home'
+            drawerLabel: 'Home',
+            drawerIcon: ({ tintColor }) => (
+                <Icon
+                    name='home'
+                    type='font-awesome'
+                    size={24}
+                    color={tintColor}
+                    />
+            )
         }
     },
     Menu: {
         screen: MenuNavigator,
         navigationOptions: {
             title: 'Menu',
-            drawerLabel: 'Menu'
+            drawerLabel: 'Menu',
+            drawerIcon: ({ tintColor }) => (
+                <Icon
+                    name='list'
+                    type='font-awesome'
+                    size={24}
+                    color={tintColor}
+                    />
+            )
         }
     },
     About: {
         screen: AboutNavigator,
         navigationOptions: {
             title: 'About',
-            drawerLabel: 'About'
+            drawerLabel: 'About',
+            drawerIcon: ({ tintColor }) => (
+                <Icon
+                    name='address-card'
+                    type='font-awesome'
+                    size={22}
+                    color={tintColor}
+                    />
+            )
         }
     },
     Contact: {
         screen: ContactNavigator,
         navigationOptions: {
             title: 'Contact',
-            drawerLabel: 'Contact'
+            drawerLabel: 'Contact',
+            drawerIcon: ({ tintColor }) => (
+                <Icon
+                    name='home'
+                    type='font-awesome'
+                    size={24}
+                    color={tintColor}
+                    />
+            )
         }
     }
    
