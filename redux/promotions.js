@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 
-export const dishes = (state = {
+export const promotions = (state = {
     isLoading: true,
     errMess: null,
     promotions: []
@@ -11,7 +11,7 @@ export const dishes = (state = {
         case ActionTypes.PROMOS_LOADING:
             return {...state, isLoading: true, errMess: null, promotions: []}
         case ActionTypes.PROMOS_FAILED:
-            return {...state, isLoading: false, errMess: action.payload, promotions: []}
+            return {...state, isLoading: false, errMess: action.payload}
         default:
             return state;
     }

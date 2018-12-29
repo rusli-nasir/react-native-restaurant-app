@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
 import { connect } from 'react-redux';
 import { baseURL } from '../shared/baseURL';
 
