@@ -3,6 +3,7 @@ import { View, FlatList } from 'react-native';
 import { Tile } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseURL } from '../shared/baseURL';
+import { Loading } from './Loading';
 
 const mapStateToProps = state => {
     return {
@@ -35,6 +36,18 @@ class Menu extends Component {
         // Navigator supports passing parameters
         const { navigate } = this.props.navigation;
 
+        if(this.props.dishes.isLoading) {
+            return(
+                <Loading />
+            );
+        } else if (this.props.dishes.errMess) {
+            return(
+                <View>
+                    <Text>{this.props.dishes.errMess}</Text>
+                </View>
+            )
+        } else {
+
         return(
             <FlatList 
                 data={this.props.dishes.dishes}
@@ -43,7 +56,7 @@ class Menu extends Component {
             /> 
         );
     }
- 
+}
 }
 
 export default connect(mapStateToProps)(Menu);
