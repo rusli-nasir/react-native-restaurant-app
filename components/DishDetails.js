@@ -3,8 +3,8 @@ import { View, Text, ScrollView, FlatList, Modal, Button, StyleSheet } from 'rea
 import { Card, Icon, Rating , Input} from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseURL } from '../shared/baseURL';
-import { postFavorite } from '../redux/ActionCreators';
-import { Directions } from 'react-native-gesture-handler';
+import { postFavorite, postComment} from '../redux/ActionCreators';
+
 
 const mapStateToProps = state => {
     return {
@@ -15,7 +15,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    postFavorite: (dishId) => dispatch(postFavorite(dishId))
+    postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 });
 
 function RenderDish(props) {
@@ -90,8 +91,15 @@ class DishDetail extends Component {
             author: '',
             comment: '',
         }
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleComment = this.handleComment.bind(this);
     }
 
+    handleComment(dishId, rating, author, comment) {
+        console.log(dishId, rating, author, comment);
+        this.props.postComment(dishId, rating, author, comment);
+        this.toggleModal();
+    }
     toggleModal() {
         this.setState({ isShownModal: !this.state.isShownModal })
     }
@@ -150,7 +158,7 @@ class DishDetail extends Component {
                     <Button
                         title='SUBMIT'
                         color='#512DA8'
-                        onPress={() => this.toggleModal()}
+                        onPress={() => this.handleComment(dishId, this.state.rating, this.state.author, this.state.comment)}
                         accessibilityLabel='Submit Comment'
                         />
                     <Button
