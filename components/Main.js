@@ -9,7 +9,7 @@ import { View, Platform, Image, StyleSheet, ScrollView, Text } from 'react-nativ
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView} from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders, postComment } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -25,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
     fetchComments: () => dispatch(fetchComments()),
     fetchPromos: () => dispatch(fetchPromos()), 
     fetchLeaders: () => dispatch(fetchLeaders()),
+    postComment: () => dispatch(postComment())
 })
 
 // Stack Navigator
@@ -245,6 +246,7 @@ class Main extends Component {
         this.props.fetchComments();
         this.props.fetchPromos();
         this.props.fetchLeaders();
+        this.props.postComment();
     }
 
     render() {
