@@ -148,11 +148,6 @@ export const addFavorite = (dishId) => ({
     payload: dishId
 });
 
-export const addComment = (comment) =>({
-    type: ActionTypes.ADD_COMMENT,
-    payload: comment
-})
-
 // -- Post Comment and Add Comment -- //
 export const postComment = (dishId, rating, author, commnet) => (dispatch) => {
     const newComment = {
@@ -189,4 +184,12 @@ export const postComment = (dishId, rating, author, commnet) => (dispatch) => {
         .catch(error => console.log("Error has occured ", error.message))
 }
 
+export const addComment = (comment) =>({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+})
 
+export const deleteFavorite = (dishId) => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: dishId
+});
