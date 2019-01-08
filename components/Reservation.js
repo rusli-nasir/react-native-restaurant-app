@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal, Alert } from 'react-native';
 import { Card } from 'react-native-elements';
 import DatePicker  from 'react-native-datepicker';
 import * as  Animatable from 'react-native-animatable';
@@ -13,7 +13,7 @@ class Reservation extends Component {
             guests: 1,
             smoking: false,
             date: '',
-            showModal: false,
+           /*  showModal: false, */
         }
     }
 
@@ -27,7 +27,25 @@ class Reservation extends Component {
 
     handleReservation() {
         console.log(JSON.stringify(this.state));
-        this.toggleModal();
+        //this.toggleModal();
+        Alert.alert(
+            'Your Reservation',
+            `Number of Guests: ` + this.state.guests + 
+            `\nSmoking: ` + this.state.smoking +
+            `\nDate and Time:` + this.state.date,
+            [
+                {
+                    text:'Cancel',
+                    onPress: () => this.resetForm(),
+                    style: 'cancel'
+                },
+                {
+                    text:'OK',
+                    onPress: () => this.resetForm()
+                }
+            ],
+            { cancelable: false}
+        )
     }
 
     resetForm() {
@@ -100,25 +118,6 @@ class Reservation extends Component {
                     accessibilityLabel='Confirm Reservation'
                 />
             </View>
-            <Modal
-                animationType={'slide'}
-                transparent={false}
-                visible={this.state.showModal}
-                onDismiss={() => {this.toggleModal(); this.resetForm()}}
-                onRequestClose={() => {this.toggleModal(); this.resetForm()}}
-                >
-                <View style={styles.modal}>
-                    <Text style={styles.modalTitle}>Your Reservation</Text>
-                    <Text style={styles.modalText}>Number of Guests: {this.state.guests}</Text>
-                    <Text style={styles.modalText}>Smoking: {this.state.smoking ? 'Yes' : 'No'}</Text>
-                    <Text style={styles.modalText}>Date and Time {this.state.date}</Text>
-                    <Button 
-                        onPress={() => {this.toggleModal(); this.resetForm()}}
-                        color='#512DA8'
-                        title='Close'
-                        />
-                </View>
-            </Modal>
             </Animatable.View>
           </ScrollView>
                 
