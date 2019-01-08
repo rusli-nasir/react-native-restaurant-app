@@ -35,6 +35,14 @@ function RenderDish(props) {
         }
     };
 
+    const recognizeComment = ({ moveX, moveY, dx, dy }) => {
+        if(dx > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     const panResponder = PanResponder.create({
         // can be implemented various callbacks
         // when the user's gesture begins on the screen
@@ -63,6 +71,9 @@ function RenderDish(props) {
                     ],
                     { cancelable: false}
                 )
+            } else if(recognizeComment(gestureState)) {
+                console.log("Deneme: ", gestureState.dx),
+               () => this.toggleModal();
             }
             return true;
         }
