@@ -73,7 +73,7 @@ function RenderDish(props) {
                 )
             } else if(recognizeComment(gestureState)) {
                 console.log("Deneme: ", gestureState.dx),
-               () => this.toggleModal();
+               props.makeComment();
             }
             return true;
         }
