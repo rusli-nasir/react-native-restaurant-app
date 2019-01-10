@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View, Button, StyleSheet } from 'react-native';
-import { Card, Icon, Inpput, CheckBox, Input } from 'react-native-elements';
+import { Icon, Input, CheckBox, Input } from 'react-native-elements';
 import { SecureStore } from 'expo';
 
 class Login extends Component {
