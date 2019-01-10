@@ -55,6 +55,7 @@ class Login extends Component {
                 <Input
                     placeholder='Password'
                     leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    secureTextEntry={true}
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     containerStyle={styles.formInput} /* Input styling */
