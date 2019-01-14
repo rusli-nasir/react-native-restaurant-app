@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text } from 'react-native';
+import {View, Text, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseURL } from '../shared/baseURL';
@@ -62,6 +62,7 @@ class Home extends Component {
   render() {
         return(
             <View stlye={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                <ScrollView>
                     <RenderItem 
                         item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
                         isLoading={this.props.dishes.isLoading}
@@ -77,6 +78,7 @@ class Home extends Component {
                         isLoading={this.props.leaders.isLoading}
                         errMess={this.props.leaders.errMess}
                         />
+                </ScrollView>
             </View>
         );
     }
