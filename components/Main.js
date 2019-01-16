@@ -7,7 +7,7 @@ import DishDetail from './DishDetails';
 import Reservation from './Reservation';
 import Favorites from './Favorites';
 import Login from './Login';
-import { View, Platform, Image, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, Platform, Image, StyleSheet, ScrollView, Text, NetInfo, ToastAndroid } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView} from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -317,8 +317,37 @@ class Main extends Component {
         this.props.fetchPromos();
         this.props.fetchLeaders();
         this.props.postComment();
-    }
 
+        NetInfo.getConnectionInfo() // returns a promise
+            .then((connectionInfo) => {
+                ToastAndroid.show('Connection type: ' + connectionInfo.type + 'Effectiive Type: ' + connectionInfo.effectiveType,
+                ToastAndroid.LONG)
+            });
+            NetInfo.addEventListener('connectionChange', this.handleConnectivity)
+    }
+    
+    componentWillUnmount() {
+        NetInfo.removeEventListener('connectionChange', this.handleConnectivity)   
+        }
+
+    handleConnectivity = (connectionInfo) => {
+        switch(connectionInfo.type) {
+            case 'none':
+                ToastAndroid.show('You are now offline!', ToastAndroid.LONG)
+                break;
+            case 'wifi':
+                ToastAndroid.show('You are now connnected to WiFi', ToastAndroid.LONG)
+                break;
+            case 'cellular':
+                ToastAndroid.show('You are now connected to Cellular!', ToastAndroid.LONG)
+                break;
+            case 'unknown':
+                ToastAndroid.show('You now have an unknown connection', ToastAndroid.LONG)
+                break;
+            default:
+                break;
+        }
+    }
     render() {
         return(
             <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
